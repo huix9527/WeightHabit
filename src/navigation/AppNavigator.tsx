@@ -1,14 +1,17 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
-import { selectIsAuthenticated, selectAuthLoading } from '@/store/slices/authSlice';
-import { LoadingScreen } from '@/components/LoadingScreen';
-import { RootStackParamList } from '@/types';
+import { LoadingScreen } from "@/components/LoadingScreen";
+import {
+  selectAuthLoading,
+  selectIsAuthenticated,
+} from "@/store/slices/authSlice";
+import { RootStackParamList } from "@/types";
+import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { useSelector } from "react-redux";
 
 // 导入屏幕组件
-import SplashScreen from '@/screens/SplashScreen';
-import AuthNavigator from './AuthNavigator';
-import MainNavigator from './MainNavigator';
+import SplashScreen from "@/screens/SplashScreen";
+import AuthNavigator from "./AuthNavigator";
+import MainNavigator from "./MainNavigator";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -30,36 +33,31 @@ export const AppNavigator: React.FC = () => {
       initialRouteName="Splash"
     >
       {/* 启动屏幕 */}
-      <Stack.Screen 
-        name="Splash" 
+      <Stack.Screen
+        name="Splash"
         component={SplashScreen}
         options={{
-          animationTypeForReplace: 'push',
+          animationTypeForReplace: "push",
         }}
       />
-      
-      {/* 根据认证状态显示不同的导航器 */}
-      {isAuthenticated ? (
-        <Stack.Screen 
-          name="Main" 
-          component={MainNavigator}
-          options={{
-            animationTypeForReplace: 'push',
-          }}
-        />
-      ) : (
-        <Stack.Screen 
-          name="Auth" 
-          component={AuthNavigator}
-          options={{
-            animationTypeForReplace: 'pop',
-          }}
-        />
-      )}
+
+      <Stack.Screen
+        name="Main"
+        component={MainNavigator}
+        options={{
+          animationTypeForReplace: "push",
+        }}
+      />
+
+      <Stack.Screen
+        name="Auth"
+        component={AuthNavigator}
+        options={{
+          animationTypeForReplace: "pop",
+        }}
+      />
     </Stack.Navigator>
   );
 };
 
 export default AppNavigator;
-
-
